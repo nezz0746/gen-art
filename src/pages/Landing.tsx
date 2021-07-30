@@ -1,9 +1,10 @@
 /* eslint-disable react/jsx-key */
 import { useWindowSize, useHover } from 'react-use';
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { animated, useSpring } from 'react-spring';
 import chroma from 'chroma-js';
+import Canvas from '../components/Canvas';
 
 type GridSquareState = {
   color: string;
@@ -30,7 +31,7 @@ const buildGrid = (length: number, squareSize: number): GridSquareState[][] => {
 
 const useGrid = () => {
   const { width, height } = useWindowSize();
-  const gridSize = 40;
+  const gridSize = 25;
 
   const squareSize = height / gridSize;
 
@@ -110,33 +111,35 @@ const Square = ({
 };
 
 export default function LandingPage(): JSX.Element {
-  const { grid, width, height } = useGrid();
+  const { grid } = useGrid();
   const [clickedCoordinates, setClickedCoordinates] = useState<null | Coordinates>(null);
 
   return (
-    <div className="flex flex-row justify-center" style={{ height, width }}>
-      {grid.map((col, colIndex) => {
-        return (
-          <div>
-            {col.map((square, rowIndex) => (
-              <Square
-                {...square}
-                clickedCoordinates={clickedCoordinates}
-                coordinates={{
-                  x: colIndex,
-                  y: rowIndex,
-                }}
-                setCoordinates={() => {
-                  setClickedCoordinates({
+    <Canvas>
+      <div className="flex flex-row">
+        {grid.map((col, colIndex) => {
+          return (
+            <div>
+              {col.map((square, rowIndex) => (
+                <Square
+                  {...square}
+                  clickedCoordinates={clickedCoordinates}
+                  coordinates={{
                     x: colIndex,
                     y: rowIndex,
-                  });
-                }}
-              />
-            ))}
-          </div>
-        );
-      })}
-    </div>
+                  }}
+                  setCoordinates={() => {
+                    setClickedCoordinates({
+                      x: colIndex,
+                      y: rowIndex,
+                    });
+                  }}
+                />
+              ))}
+            </div>
+          );
+        })}
+      </div>
+    </Canvas>
   );
 }
