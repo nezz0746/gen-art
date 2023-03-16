@@ -40,5 +40,6 @@ module.exports = {
         'react/prop-types': 0,
         'react/jsx-props-no-spreading': 'off',
         '@typescript-eslint/ban-types': 'off',
+        "@typescript-eslint/no-unused-vars": "off"
     },
 };

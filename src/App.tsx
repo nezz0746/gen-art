@@ -3,6 +3,9 @@ import { RefreshIcon } from '@heroicons/react/outline';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import Landing from './pages/Landing';
 import Other from './pages/Other';
+import SolarSystem from './pages/Snake';
+import Face from './pages/Face';
+import NFTPage from './pages/NFT';
 
 const routes = [
   {
@@ -12,6 +15,18 @@ const routes = [
   {
     path: '/1',
     component: Other,
+  },
+  {
+    path: '/2',
+    component: SolarSystem,
+  },
+  {
+    path: '/3',
+    component: Face,
+  },
+  {
+    path: '/4',
+    component: NFTPage,
   },
 ];
 
@@ -23,7 +38,7 @@ const App: React.FC = () => {
   );
 
   useEffect(() => {
-    history.push(currentPath);
+    history.push('/4');
   }, [currentPath, history]);
 
   return (
